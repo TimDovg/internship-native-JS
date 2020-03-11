@@ -82,7 +82,11 @@ document.querySelector('.menu-icon').onmouseover = () =>
         }
     });
 
-document.querySelector('.menu-icon').onmouseout = () =>
+document.querySelectorAll('.bar > div').forEach( div =>
+    div.onmouseover = () => document.querySelectorAll('.bar > div').forEach(div =>
+        div.classList.add('selected')));
+
+document.querySelector('.menu-icon').onmouseout = e =>
     document.querySelectorAll('.bar > div').forEach( div => {
         if (div.classList.contains('selected')) return;
 

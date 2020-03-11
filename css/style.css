@@ -26,7 +26,6 @@ body {
 }
 
 .back, .demo, .codrops {
-    transition: color 0.5s, background-color 0.5s;
     cursor: pointer;
     padding: 20px 40px;
 }
@@ -41,7 +40,6 @@ body {
     padding: 15px;
     cursor: pointer;
     border-right: 1px solid var(--border);
-    transition: color 0.5s, background-color 0.5s;
 }
 
 .menu-icon:hover {
@@ -51,7 +49,7 @@ body {
 
 .bar {
     position: fixed;
-    top: 8.7%;
+    top: 63px;
     bottom: 0;
     display: flex;
     flex-direction: column;
@@ -71,7 +69,7 @@ body {
     height: 22px;
     overflow: hidden;
     cursor: pointer;
-    transition: color 1s, background-color 0.5s, width 0.5s;
+    transition: width 0.5s;
 }
 
 .bar > div:hover {
@@ -93,8 +91,13 @@ body {
 }
 
 .input-search {
+    color: inherit;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    margin-left: -10px;
     outline: none;
     border: none;
     border-radius: 10px;
     padding-left: 10px;
+    background-color: rgba(0, 0, 0, 0);
 }
