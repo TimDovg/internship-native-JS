@@ -61,37 +61,43 @@ document.querySelector('main').innerHTML = `
     </div>
 `;
 
-document.querySelector('.menu-icon').addEventListener('click', () =>
-    document.querySelectorAll('.bar > div').forEach( div => {
-        if (div.classList.contains('selected')) {
-            div.classList.remove('selected');
-            document.querySelector('.search').innerHTML = `
+// open menu
+setTimeout(() => document.querySelector('.bar').classList.add('selected'), 0);
+
+document.querySelector('.menu-icon').addEventListener('click', () => {
+    const bar = document.querySelector('.bar');
+
+    if (bar.classList.contains('selected')) {
+        bar.classList.remove('selected', 'over');
+        document.querySelector('.search').innerHTML = `
                 <i class="fas fa-search fa-lg"></i>
                 Search
             `;
-        } else {
-            div.classList.add('selected');
-        }
-    })
-);
+    } else {
+        bar.classList.add('selected');
+    }
+});
 
-document.querySelector('.menu-icon').onmouseover = () =>
-    document.querySelectorAll('.bar > div').forEach( div => {
-        if (!div.classList.contains('over')) {
-            div.classList.add('over');
-        }
-    });
+document.querySelector('.menu-icon').onmouseover = () => {
+    const bar = document.querySelector('.bar');
+
+    if (!bar.classList.contains('over')) {
+        bar.classList.add('over');
+    }
+
+};
 
 document.querySelectorAll('.bar > div').forEach( div =>
-    div.onmouseover = () => document.querySelectorAll('.bar > div').forEach(div =>
-        div.classList.add('selected')));
+    div.onmouseover = () => document.querySelector('.bar').classList.add('selected')
+);
 
-document.querySelector('.menu-icon').onmouseout = e =>
-    document.querySelectorAll('.bar > div').forEach( div => {
-        if (div.classList.contains('selected')) return;
+document.querySelector('.menu-icon').onmouseout = () => {
+    const bar = document.querySelector('.bar');
 
-        div.classList.remove('over');
-    });
+    if (bar.classList.contains('selected')) return;
+
+    bar.classList.remove('over');
+};
 
 document.querySelector('.search').addEventListener('click', e => {
     const search = e.currentTarget;
@@ -103,4 +109,20 @@ document.querySelector('.search').addEventListener('click', e => {
         <input class="input-search">
     `;
     search.querySelector('input').focus();
+});
+
+window.addEventListener('click', e => {
+    const bar = document.querySelector('.bar');
+    const menu = document.querySelector('.menu-icon');
+
+    if (bar === e.target || bar === e.target.parentNode || bar === e.target.parentNode.parentNode) return;
+    if (menu === e.target || menu === e.target.parentNode || menu === e.target.parentNode.parentNode) return;
+
+    if (document.querySelector('.search')) {
+        document.querySelector('.search').innerHTML = `
+                <i class="fas fa-search fa-lg"></i>
+                Search
+            `;
+    }
+    bar.classList.remove('selected');
 });

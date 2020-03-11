@@ -61,15 +61,21 @@ body {
 }
 
 .bar > div {
-    display: none;
     white-space: nowrap;
     border-bottom: 1px solid var(--border);
-    padding: 15px;
+    padding: 15px 0 15px 0;
     width: 0;
     height: 22px;
     overflow: hidden;
     cursor: pointer;
-    transition: width 0.5s;
+    transition: width 0.5s, padding 0.5s;
+}
+
+div .vector, div .photoshop, div .articles, div .images, div .videos {
+    border: none;
+    height: 0;
+    padding: 0;
+    transition: height 0.5s, padding 0.5s;
 }
 
 .bar > div:hover {
@@ -81,13 +87,17 @@ body {
     color: var(--border);
 }
 
-.over {
-    width: 30px !important;;
-    display: flex !important;
+.bar.over > div {
+    width: 30px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
 }
 
-.selected {
-    width: 250px !important;;
+.bar.selected > div {
+    width: 250px !important;
+    padding: 15px !important;
+    height: 22px !important;
+    border-bottom: 1px solid var(--border) !important;
 }
 
 .input-search {
