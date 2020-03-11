@@ -91,3 +91,10 @@ body {
 .selected {
     width: 250px !important;;
 }
+
+.input-search {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding-left: 10px;
+}

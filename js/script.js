@@ -65,6 +65,10 @@ document.querySelector('.menu-icon').addEventListener('click', () =>
     document.querySelectorAll('.bar > div').forEach( div => {
         if (div.classList.contains('selected')) {
             div.classList.remove('selected');
+            document.querySelector('.search').innerHTML = `
+                <i class="fas fa-search fa-lg"></i>
+                Search
+            `;
         } else {
             div.classList.add('selected');
         }
@@ -84,3 +88,15 @@ document.querySelector('.menu-icon').onmouseout = () =>
 
         div.classList.remove('over');
     });
+
+document.querySelector('.search').addEventListener('click', e => {
+    const search = e.currentTarget;
+
+    if (search.querySelector('input')) return;
+
+    search.innerHTML = `
+        <i class="fas fa-search fa-lg"></i>
+        <input class="input-search">
+    `;
+    search.querySelector('input').focus();
+});
