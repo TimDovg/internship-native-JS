@@ -1,0 +1,93 @@
+:root {
+    --hover: #5F6F81;
+    --border: #C6D0DA;
+    --selected: #5993cd;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    margin: 0;
+}
+
+.navigation {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+}
+
+.codrops, .demo  {
+    border-right: 1px solid var(--border);
+}
+
+.back {
+    margin-left: auto;
+    border-left: 1px solid var(--border);
+}
+
+.back, .demo, .codrops {
+    transition: color 0.5s, background-color 0.5s;
+    cursor: pointer;
+    padding: 20px 40px;
+}
+
+.back:hover, .demo:hover, .codrops:hover {
+    background-color: var(--hover);
+    color: white;
+}
+
+.menu-icon {
+    width: 30px;
+    padding: 15px;
+    cursor: pointer;
+    border-right: 1px solid var(--border);
+    transition: color 0.5s, background-color 0.5s;
+}
+
+.menu-icon:hover {
+    background-color: var(--hover);
+    color: white;
+}
+
+.bar {
+    position: fixed;
+    top: 8.7%;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.bar > div > svg {
+    padding-right: 25px;
+    padding-left: 3px;
+}
+
+.bar > div {
+    display: none;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+    padding: 15px;
+    width: 0;
+    height: 22px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: color 1s, background-color 0.5s, width 0.5s;
+}
+
+.bar > div:hover {
+    color: white;
+    background-color: var(--hover);
+}
+
+.vector, .photoshop, .articles, .images, .videos {
+    color: var(--border);
+}
+
+.over {
+    width: 30px !important;;
+    display: flex !important;
+}
+
+.selected {
+    width: 250px !important;;
+}
