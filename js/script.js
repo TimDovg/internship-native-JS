@@ -124,5 +124,5 @@ window.addEventListener('click', e => {
                 Search
             `;
     }
-    bar.classList.remove('selected');
+    bar.classList.remove('selected', 'over');
 });
