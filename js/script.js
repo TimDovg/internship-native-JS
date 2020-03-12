@@ -62,7 +62,7 @@ document.querySelector('main').innerHTML = `
 `;
 
 // open menu
-setTimeout(() => document.querySelector('.bar').classList.add('selected'), 0);
+document.querySelector('.bar').classList.add('selected');
 
 document.querySelector('.menu-icon').addEventListener('click', () => {
     const bar = document.querySelector('.bar');
