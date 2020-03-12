@@ -2,6 +2,7 @@
     --hover: #5F6F81;
     --border: #C6D0DA;
     --selected: #5993cd;
+    --gray-selected: #F5F5F5;
 }
 
 body {
@@ -111,3 +112,80 @@ div .vector, div .photoshop, div .articles, div .images, div .videos {
     padding-left: 10px;
     background-color: rgba(0, 0, 0, 0);
 }
+
+.content {
+    margin-left: 350px;
+    margin-top: 30px;
+}
+
+.registration {
+
+}
+
+.default-input {
+    width: 200px;
+    height: 15px;
+    font-size: 14px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid var(--selected);
+    margin-top: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-right: 20px;
+}
+
+.input-with-selection {
+    float: left;
+    margin-left: 30px;
+}
+
+.input-no-selection {
+    float: left;
+}
+
+.reset {
+    display: none;
+    width: 8px;
+    font-weight: bold;
+    position: relative;
+    top: -25px;
+    left: 208px;
+}
+
+.display-countries {
+    margin-top: -19px;
+    display: none;
+    min-width: 210px;
+    min-height: 25px;
+    max-height: 100px;
+    box-shadow: 0 0 5px 0 gray;
+    overflow-y: auto;
+}
+
+.display-countries .country {
+    display: flex;
+    margin-bottom: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.display-countries .country:hover {
+    background-color: var(--gray-selected);
+}
+
+.display-countries .country:active {
+    background-color: #D6D6D6;
+}
+
+.display-countries .country .alt-name {
+    margin-left: auto;
+    padding-left: 10px;
+}
+
+.recently {
+    font-style: italic;
+    margin-left: auto;
+    color: #76A1FF;
+}
+
