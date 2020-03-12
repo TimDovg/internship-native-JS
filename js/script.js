@@ -67,12 +67,14 @@ document.querySelector('main').innerHTML = `
                 <div class="reset">x</div>
                 <div class="display-countries"></div>
             </label>
+            <button class="save-no-selection">Save</button>
             <label class="input-with-selection">
                 Выберите страну<br>
                 <input class="default-input">
                 <div class="reset">x</div>
                 <div class="display-countries"></div>
             </label>
+            <button class="save-with-selection">Save</button>
         </div>
     </div>
 `;
@@ -157,20 +159,25 @@ document.querySelectorAll('.reset').forEach(button => button.addEventListener('c
 const getCountriesByString = str => fetch(`https://restcountries.eu/rest/v2/name/${str}`)
     .then(r => r.json());
 
-const renderCountriesBySearch = (container, countries) => {
+const renderCountriesBySearch = (container, countries, countryName) => {
     if (countries.length === 0) {
         container.innerHTML = `No options`;
     } else {
         const selectedCountries = localStorage.getItem('selected-countries').split('??');
+        const re = new RegExp(countryName, 'ig');
 
         selectedCountries.pop();
         container.innerHTML = ``;
-        selectedCountries.forEach(country => container.innerHTML += `
-            <div class="country">
-                    <div class="name">${country}</div>
-                    <div class="recently">recently</div>
-                </div>
-        `);
+        selectedCountries.forEach(country => {
+            if (re.test(country)) {
+                container.innerHTML += `
+                    <div class="country">
+                            <div class="name">${country}</div>
+                            <div class="recently">recently</div>
+                        </div>
+                `;
+            }
+        });
         countries.forEach(country => container.innerHTML += `
                 <div class="country">
                     <div class="name">${country.name}</div>
@@ -179,6 +186,23 @@ const renderCountriesBySearch = (container, countries) => {
             `);
     }
 };
+
+const debounce = (f, ms) => {
+    let isCooldown = false;
+
+    return function() {
+        if (isCooldown) return;
+
+        f.apply(this, arguments);
+
+        isCooldown = true;
+
+        setTimeout(() => isCooldown = false, ms);
+    };
+
+};
+
+const renderCountriesBySearchDebounced = debounce(renderCountriesBySearch, 1000);
 
 document.querySelectorAll('.registration input').forEach(input => {
     const resetButton = input.parentNode.querySelector('.reset');
@@ -206,7 +230,7 @@ document.querySelectorAll('.registration input').forEach(input => {
                 if (countries.status === 404) {
                     container.innerHTML = `No options`;
                 } else {
-                    renderCountriesBySearch(container, countries);
+                    renderCountriesBySearchDebounced(container, countries, country);
                 }
             })
     })
@@ -220,7 +244,8 @@ window.addEventListener('click', e => {
     }
 });
 
-document.querySelectorAll('.display-countries').forEach(container => container.addEventListener('click', e => {
+document.querySelectorAll('.display-countries').forEach(container =>
+    container.addEventListener('click', e => {
         let countryName;
         let input = container.parentNode.querySelector('input');
 
@@ -230,16 +255,50 @@ document.querySelectorAll('.display-countries').forEach(container => container.a
             countryName = e.target.querySelector('.name').innerHTML.trim();
         }
         if (countryName) {
-            let selectedCountries = localStorage.getItem('selected-countries');
-
             input.value = countryName;
-            window.focus();
-
-            if (!localStorage.getItem('selected-countries').split('??').includes(countryName)) {
-                selectedCountries += `${countryName}??`;
-                localStorage.setItem('selected-countries', selectedCountries);
-            }
         }
     })
 );
+
+document.querySelector('.save-no-selection').addEventListener('click', () => {
+    let selectedCountries = localStorage.getItem('selected-countries');
+    let countryName = document.querySelector('.input-no-selection input').value.trim();
+
+    if (!localStorage.getItem('selected-countries').split('??').includes(countryName)) {
+        selectedCountries += `${countryName}??`;
+        localStorage.setItem('selected-countries', selectedCountries);
+    }
+
+    console.log(`saved ${countryName}`);
+});
+
+document.querySelector('.save-with-selection').addEventListener('click', () => {
+    let selectedCountries = localStorage.getItem('selected-countries');
+    let countryName = document.querySelector('.input-with-selection input').value.trim();
+
+    fetch(`https://restcountries.eu/rest/v2/name/${countryName}`)
+        .then(r => r.json())
+        .then(response => {
+          if (response.status === 404) {
+              throw `${countryName} doesn't exist!`;
+          } else {
+              return response.map(country => country.name);
+          }
+        })
+        .then(countries => {
+            if (countries.includes(countryName)) {
+                if (!localStorage.getItem('selected-countries').split('??').includes(countryName)) {
+                    selectedCountries += `${countryName}??`;
+                    localStorage.setItem('selected-countries', selectedCountries);
+                    console.log(`saved ${countryName}`);
+                } else {
+                    console.log(`passed ${countryName}, but already has been included`);
+                }
+            } else {
+                console.log(`saved ${countryName}`);
+            }
+        })
+        .catch(err => console.log(err))
+    ;
+});
 

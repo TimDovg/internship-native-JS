@@ -118,10 +118,6 @@ div .vector, div .photoshop, div .articles, div .images, div .videos {
     margin-top: 30px;
 }
 
-.registration {
-
-}
-
 .default-input {
     width: 200px;
     height: 15px;
@@ -136,8 +132,9 @@ div .vector, div .photoshop, div .articles, div .images, div .videos {
 }
 
 .input-with-selection {
-    float: left;
-    margin-left: 30px;
+    position: absolute;
+    top: 93px;
+    left: 806px;
 }
 
 .input-no-selection {
@@ -187,5 +184,19 @@ div .vector, div .photoshop, div .articles, div .images, div .videos {
     font-style: italic;
     margin-left: auto;
     color: #76A1FF;
+}
+
+.registration .save-no-selection {
+    position: absolute;
+    top: 124px;
+    left: 587px;
+    cursor: pointer;
+}
+
+.registration .save-with-selection {
+    position: absolute;
+    top: 124px;
+    left: 1043px;
+    cursor: pointer;
 }
 
